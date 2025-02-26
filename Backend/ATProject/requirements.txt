@@ -1,5 +1,5 @@
+python-dotenv==1.0.1
+psycopg2-binary
 django
 djangorestframework
-africastalking
-psycopg2
-
+django-cors-headers

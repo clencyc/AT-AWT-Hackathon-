@@ -1,22 +1,17 @@
-from django.shortcuts import render
-import africastalking
+from django.http import JsonResponse
+from .utils import send_sms
 
-# Initialize SDK
-username = "YOUR_USERNAME"
-api_key = "YOUR_API_KEY"
-africastalking.initialize(username, api_key)
+def send_bulk_sms(request):
+    # Define recipients and message
+    recipients = ["+254759145357"]  # Replace with your phone number
+    message = "Hey AT Ninja! This is a test SMS from Django."
+    # sender = "XXYYZZ"  # Optional: Replace with your sender ID
 
-# Get the SMS service
-sms = africastalking.SMS
+    # Send SMS
+    response = send_sms(recipients, message)
 
-# code to send bulk sms
-def send_bulk_sms():
-    recipients = ["+254792552491", "+254759145357"]
-    message = "Hi [Customer name], get 10% off on Samsung galaxy s23! Reply Yes to confirm"
-    try:
-        response = sms.send(message, recipients)
-        print(response)
-    except Exception as e:
-        print(f"Error: {e}")
-
-send_bulk_sms()
+    # Return response
+    if response:
+        return JsonResponse({"status": "success", "response": response})
+    else:
+        return JsonResponse({"status": "error", "message": "Failed to send SMS"})
