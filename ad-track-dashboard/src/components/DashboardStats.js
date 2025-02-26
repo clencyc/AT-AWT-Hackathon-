@@ -4,6 +4,14 @@ import "./DashboardStats.css";
 const DashboardStats = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [showPostAd, setShowPostAd] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    callToAction: "",
+    category: "",
+  });
 
   const content = {
     overview: [
@@ -29,26 +37,43 @@ const DashboardStats = () => {
     ],
   };
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // ✅ Ensure all fields are filled before showing the success message
+    if (formData.title && formData.description && formData.callToAction && formData.category) {
+      setFormSubmitted(true); // ✅ Show success message
+
+      // ✅ Reset form fields immediately after submission
+      setFormData({
+        title: "",
+        description: "",
+        callToAction: "",
+        category: "",
+      });
+
+      // ✅ Hide success message after 3 seconds
+      setTimeout(() => {
+        setFormSubmitted(false);
+      }, 3000);
+    }
+  };
+
   return (
     <div className="stats-container">
       {/* Buttons */}
       <div className="buttons">
-        <button
-          className={activeTab === "overview" ? "button active" : "button"}
-          onClick={() => setActiveTab("overview")}
-        >
+        <button className={activeTab === "overview" ? "button active" : "button"} onClick={() => setActiveTab("overview")}>
           Overview
         </button>
-        <button
-          className={activeTab === "views" ? "button active" : "button"}
-          onClick={() => setActiveTab("views")}
-        >
+        <button className={activeTab === "views" ? "button active" : "button"} onClick={() => setActiveTab("views")}>
           Views
         </button>
-        <button
-          className={activeTab === "engagement" ? "button active" : "button"}
-          onClick={() => setActiveTab("engagement")}
-        >
+        <button className={activeTab === "engagement" ? "button active" : "button"} onClick={() => setActiveTab("engagement")}>
           Engagement
         </button>
       </div>
@@ -68,17 +93,31 @@ const DashboardStats = () => {
         <button className="postAd" onClick={() => setShowPostAd(true)}>Post Ad</button>
       </div>
 
-      {/* Post Ad Form (Initially Hidden) */}
+      {/* Post Ad Form */}
       {showPostAd && (
         <div className="post-ad-form">
           <h3>Post Ad</h3>
-          <input type="text" placeholder="Ad Title" />
-          <input type="text" placeholder="Ad Description" />
-          <input type="text" placeholder="Call to Action" />
-          <div className="form-buttons">
-            <button className="submitAd">Submit</button>
-            <button className="closeAd" onClick={() => setShowPostAd(false)}>Close</button>
-          </div>
+          <form onSubmit={handleSubmit}>
+            <input type="text" name="title" placeholder="Ad Title" value={formData.title} onChange={handleChange} required />
+            <input type="text" name="description" placeholder="Ad Description" value={formData.description} onChange={handleChange} required />
+            <input type="text" name="callToAction" placeholder="Call to Action" value={formData.callToAction} onChange={handleChange} required />
+            <select name="category" className="category-select" value={formData.category} onChange={handleChange} required>
+              <option value="">Select Category</option>
+              <option value="Technology">Technology</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Food">Food</option>
+              <option value="Health">Health</option>
+              <option value="Education">Education</option>
+            </select>
+
+            <div className="form-buttons">
+              <button type="submit" className="submitAd">Submit</button>
+              <button type="button" className="closeAd" onClick={() => setShowPostAd(false)}>Close</button>
+            </div>
+          </form>
+
+          {/* ✅ Success Message Now Appears Immediately! */}
+          {formSubmitted && <p className="success-message">Successful Submission!</p>}
         </div>
       )}
     </div>

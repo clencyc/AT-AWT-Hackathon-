@@ -58,3 +58,19 @@
 .post-ad-btn:hover {
     background-color: #e08917;
 }
+
+.post-ad-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  
+  .postAd {
+    font-size: 22px;
+    background-color: #FF9F1C;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }

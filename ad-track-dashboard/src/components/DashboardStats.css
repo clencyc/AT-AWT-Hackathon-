@@ -129,3 +129,28 @@
   cursor: pointer;
   border-radius: 5px;
 }
+
+/* Success Message */
+.success-message {
+  font-size: 18px;
+  color: green;
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+ }
+ 
+/* Ensure Category Field Matches Other Input Fields */
+.category-select {
+  width: 90%; /* ✅ Ensures same width as other input fields */
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px; /* ✅ Matches input field font size */
+  background-color: white;
+  text-align: center;
+  color: #2C2C2C; /* ✅ Matches input field text color */
+  appearance: none; /* Removes default dropdown arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
