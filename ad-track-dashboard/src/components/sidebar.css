@@ -1,0 +1,32 @@
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background-color: #005F56;
+  color: white;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0; /* Ensures sidebar is at far left */
+  z-index: 1001; /* Ensures sidebar is above other elements */
+}
+
+
+.logo {
+  width: 150px;
+  display: block;
+  margin: 0 auto 20px auto;
+}
+
+.subheading {
+  font-family: "Raleway", sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 15px;
+}
+
+.subheading:hover {
+  background-color: #008073;
+}
